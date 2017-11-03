@@ -2,7 +2,8 @@ JHU Thesis Readme
 =================
 Author: R. Jacob Vogelstein <br>
 Updated by Noah J. Cowan, March 1, 2010 <br>
-Updated by Brian D. Weitzner, April 29, 2014
+Updated by Brian D. Weitzner, April 29, 2014 <br>
+Updated by Kelly C. Chang, June 30, 2016
 
 
 This archive is intended to simplify the process of creating a thesis
@@ -19,11 +20,14 @@ the references and everything, use the usual magic sequence of commands:
 
 ```sh
 pdflatex root
+makeglossaries root
 bibtex root
 pdflatex root
 pdflatex root
 ```
 Extra compiles may be needed for accurate TOC, List of Figures, etc.
+
+3. Note that the PDF generated does not conform to PDF/A requirements. Adobe Acrobat Pro can be used to convert the file to PDF/A format.
 
 What's Included?
 ----------------
@@ -32,9 +36,11 @@ What's Included?
 
 * `jhu12.clo` – The 12pt font "class option" file that contains the specific formatting commands for a 12-point font JHU thesis document.
 
-* `IEEEtran.bst` – A recent version (as of May 2007) of the BibTeX style file for formatting citations in the style used by IEEE Transactions journals.  
+* `IEEEtran.bst` – A recent version (as of Aug 2015) of the BibTeX style file for formatting citations in the style used by IEEE Transactions journals.
 
 * `thesis.bib` – A sample bibliography file in BibTeX format.
+
+* `glossary.tex` – A sample glossary file.
 
 * `root.tex` – The "root" LaTeX file that contains the LaTeX preamble as well as "include" statements for each of your thesis chapters.
 
@@ -42,7 +48,9 @@ What's Included?
 
 * `chapter1.tex` – Another sample chapter with some different formatting/header options.
 
-* `rjvheadshot.jpg` – A sample graphic with the right dimesions for the headshot used on the Vita page.
+* `appendix.tex` – Another sample chapter to go in the Appendix.
+
+* `rjvheadshot.jpg` – A sample graphic with the right dimensions for the headshot used on the Vita page.
 
 * `root.pdf` – A compiled version of the sample document.
 

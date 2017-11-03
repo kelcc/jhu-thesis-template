@@ -162,8 +162,12 @@
 \def\listtablename{List of Tables}
 %                  ~~~~~~~~~~~~~~
 %
+% \listofabbrev:
+\def\listabbrevname{Abbreviations}
+%                   ~~~~~~~~~~~~~~~
+%
 % \listofsymbols:
-\def\listsymbolname{List of Symbols}
+\def\listsymbolname{Symbols}
 %                   ~~~~~~~~~~~~~~~
 %
 % \thebibliography:
@@ -226,7 +230,7 @@
 \def\degreemonth#1{\gdef\@degreemonth{#1}}
 
 \def\copyrightnotice{\gdef\@copyrightnotice{ 
-   \copyright\ \@author\ \@degreeyear\par  All rights reserved}}
+   \copyright\ \@author\ \@degreeyear\\  All rights reserved}}
 \def\nocopyrightnotice{\gdef\@copyrightnotice{}}
 
 
@@ -253,7 +257,7 @@
 \def\fmsmallfont{\fontsize\@xiipt{14pt}\selectfont}
 
 \def\maketitle{
-{\dsp
+{\ssp
 \begin{alwayssingle}
     \let\footnotesize\small
     \let\footnoterule\relax
@@ -272,15 +276,15 @@
 %     \vfil \vskip 0.5in 
       \begin{center}
          {\large\bf \@title \par}
-         \vskip 1em
+         \vskip 1in
          {by \par}
-         \vskip 1em
+%         \vskip 1em
          \begin{tabular}[t]{c}
             {\large \@author}
          \end{tabular}\par
          \vskip 6em 
   
-         {\@thesistype\ submitted to The Johns Hopkins University in
+         {\@thesistype\ submitted to Johns Hopkins University in
           conformity with the requirements for the degree of \@degreetype.\par} 
          \vskip 2em
          {Baltimore, Maryland\par}
@@ -400,24 +404,39 @@ $\:\overline{~~~~ \mbox{\rule{0in}{0.16in}\small ~\hspace{3.5in} Date }}\:$ \\
 
 \def\endacknowledgment{\par\vfil\null}
 
+% LIST OF ABBREVIATIONS
+%
+% Somewhere in between an ``acknowledgment'' type environment and a
+% ``listoftables''
+
+\newenvironment{listofabbrevs}
+{ %\@restonecolfalse
+  %\if@twocolumn\@restonecoltrue\onecolumn\fi
+  %%%%% take care of getting page number in right spot %%%%%
+%  \clearpage
+  %\thispagestyle{botcenter}   % Page style of frontmatter is botcenter
+  \printglossary[type=\acronymtype, title=\listabbrevname]\@mkboth{\uppercase{\listabbrevname}}{\uppercase{\listabbrevname}}
+  % make sure it gets an entry in the TOC
+%   \addcontentsline{toc}{chapter}{\listabbrevname}
+}
+{\if@restonecol\twocolumn\fi}
+
 % LIST OF SYMBOLS
 %
 % Somewhere in between an ``acknowledgment'' type environment and a
 % ``listoftables''
 
 \newenvironment{listofsymbols}
-{ \@restonecolfalse
-  \if@twocolumn\@restonecoltrue\onecolumn\fi
+{ %\@restonecolfalse
+  %\if@twocolumn\@restonecoltrue\onecolumn\fi
   %%%%% take care of getting page number in right spot %%%%%
-  \clearpage
-  \thispagestyle{botcenter}   % Page style of frontmatter is botcenter
-  \@schapter{\listsymbolname\@mkboth{\uppercase{\listsymbolname}}%
-   {\uppercase{\listsymbolname}}}
+%  \clearpage
+  %\thispagestyle{botcenter}   % Page style of frontmatter is botcenter
+  \printglossary[title=\listsymbolname]\@mkboth{\uppercase{\listsymbolname}}{\uppercase{\listsymbolname}}
   % make sure it gets an entry in the TOC
-   \addcontentsline{toc}{chapter}{\listsymbolname}}
+%   \addcontentsline{toc}{chapter}{\listsymbolname}
+}
 {\if@restonecol\twocolumn\fi}
-
-\def\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
 
 % FRONTMATTER environment
 %
@@ -459,7 +478,7 @@ $\:\overline{~~~~ \mbox{\rule{0in}{0.16in}\small ~\hspace{3.5in} Date }}\:$ \\
    \addcontentsline{toc}{chapter}{\vitaname}
 }
 
-\def\endvita{\par\vfil\null}
+\def\endvita{}
 
 
 
@@ -914,7 +933,7 @@ $\:\overline{~~~~ \mbox{\rule{0in}{0.16in}\small ~\hspace{3.5in} Date }}\:$ \\
 \def\thebibliography#1{\chapter*{\bibname\@mkboth
   {\uppercase{\bibname}}{\uppercase{\bibname}}}
   \addcontentsline{toc}{chapter}{\bibname}
-  \list{\@biblabel{\arabic{enumiv}}}{\settowidth\labelwidth{\@biblabel{#1}}%
+  \list{\@biblabel{\arabic{enumiv}}}{\ssp\settowidth\labelwidth{\@biblabel{#1}}%
     \leftmargin\labelwidth
     \advance\leftmargin\labelsep
     \usecounter{enumiv}%

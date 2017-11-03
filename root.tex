@@ -1,27 +1,53 @@
 % This template was originally by R. Jacob Vogelstein
 % Updated on March 1, 2010 by Noah J. Cowan
+% Updated on August 30, 2016 by Kelly C. Chang
 
 
 \documentclass[12pt,oneside,final]{thesis}
 
-\usepackage[superscript]{cite}
+\usepackage{threeparttable}
+\usepackage{cite}
 \usepackage{amsmath,amsfonts}
 \usepackage{graphicx}
 \graphicspath{{./figs/}}
-\usepackage{fixltx2e}
 \usepackage{array}
 % wrapfig is fragile: use sparingly
 \usepackage{wrapfig} 
 %\usepackage{times}  % Use this for ugly fonts
+\usepackage{textcomp}
+\usepackage[bottom]{footmisc}
+\usepackage{afterpage}
+\usepackage[titletoc]{appendix}
+\usepackage{bibentry}
+\nobibliography*
+
+\makeatletter
+\def\bstctlcite{\@ifnextchar[{\@bstctlcite}{\@bstctlcite[@auxout]}}
+\def\@bstctlcite[#1]#2{\@bsphack
+  \@for\@citeb:=#2\do{%
+    \edef\@citeb{\expandafter\@firstofone\@citeb}%
+    \if@filesw\immediate\write\csname #1\endcsname{\string\citation{\@citeb}}\fi}%
+  \@esphack}
+\makeatother
+
+\usepackage[section]{placeins}
 
 \usepackage{upgreek}
-\usepackage{hyperref}
+\usepackage[hyperfootnotes=false,hidelinks]{hyperref}
 \usepackage{setspace}
+\usepackage[nopostdot,nonumberlist,nogroupskip,style=super,acronym,toc,ucmark]{glossaries}
+
+\let\thempfootnote\thefootnote
 
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{longtable}
-\usepackage[font=singlespacing, labelfont=bf]{caption}
+\usepackage[margin=10pt,labelfont=bf]{caption}
+\captionsetup[table]{belowskip=12pt, aboveskip=0pt}
+\captionsetup[figure]{belowskip=12pt, aboveskip=4pt}
+% the following format will be used to emulate the captions produced by fltpage
+\DeclareCaptionFormat{cont-page}{#1 #2 #3 \hrulefill\\\hspace*{\fill}\emph{(next page)}}
+\DeclareCaptionLabelFormat{adja-page}{\hrulefill\\#1 #2 \emph{(previous page)}}
 %\usepackage{CV}
 
 \usepackage{enumitem}
@@ -48,9 +74,19 @@
 
 %\tolerance=10000
 
-%\makeglossary % enable the glossary
+\makeglossaries % enable the glossary
+\setlength{\glsdescwidth}{\textwidth}
+\loadglsentries{glossary}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\newcommand{\expnumber}[2]{{#1}\mathrm{e}{#2}}
 
 \begin{document}
+\bstctlcite{BSTcontrol}
+\glsdisablehyper
 
 \title{JHU THESIS TEMPLATE}
 \author{R. Jacob Vogelstein}
@@ -65,18 +101,26 @@
 \include{chapter0}
 \include{chapter1}
 
+\begin{appendices}
 \include{appendix}
+\end{appendices}
 
 %% REFERENCES
 
 % if you use BIBTEX
 \bibliographystyle{IEEEtran}
-\bibliography{thesis}
+\bibliography{thesis.bib}
+
+% generate list of abbreviations
+\listofabbrevs
+
+% list of symbols
+\listofsymbols
 
 \begin{vita}
 
 \begin{wrapfigure}{l}{0pt}
-\includegraphics[width=2in,height=2.5in,clip,keepaspectratio]{rjvheadshot}
+\includegraphics[height=2.4in,clip,keepaspectratio]{rjvheadshot}
 \end{wrapfigure}
 
 R.\ Jacob Vogelstein received the Sc.\ B.\ degree in Bio-Electrical Engineering 

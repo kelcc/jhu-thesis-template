@@ -8,6 +8,9 @@ A citation \cite{A}.
 A citation without brackets \citen{B}. 
 Multiple citations \cite{A, B, C}.
 
+Using an abbreviation: \Gls{FPS} has the acronym \gls{FPS}.
+Using a symbol: \gls{c0}.
+
 \section{Section}
 \label{sec:section}
 
@@ -17,14 +20,14 @@ This is a section.  Here's a reference to a different section:
 \subsection{Subsection}
 \label{sec:subsection}
 
-This is a subsection.
+This is a subsection.\footnote{footnote text}
 
 % \begin{figure}[t]
 % \centering
 % \includegraphics[width=\textwidth]{figure}
 % \makeatletter
 % \let\@currsize\normalsize
-% \caption{Caption.}
+% \caption[Caption in LOF]{Caption.}
 % \label{fig:figure}
 % \end{figure}
 % 
@@ -86,7 +89,7 @@ And I quote:
 La la la.
 \end{quote}
 %
-\noindent No ident after end of quote.  
+\noindent No indent after end of quote.  
 
 Another paragraph with a list:
 %
